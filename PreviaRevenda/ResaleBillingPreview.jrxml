@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ResaleBillingPreview" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7811b37-3ec9-488c-8838-78cbeaa6c6fe">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PreviaRevenda\DataAdapter.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="billing_id" class="java.lang.String"/>
 	<parameter name="resale_name" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select "clients"."company_name", "clients"."company_actual_name", "clients"."identification", "products"."name" as "product_name", "financial_billing_client_product_solicitations"."value", "product_solicitation_types"."descricao" as "contract_type", "product_solicitations"."id", "financial_billing_client_product_solicitations"."competence_month" from "financial_billing_client_product_solicitations" inner join "financial_billing_clients" on "financial_billing_clients"."id" = "financial_billing_client_product_solicitations"."financial_billing_client_id" inner join "clients" on "clients"."id" = "financial_billing_clients"."client_id" inner join "product_solicitations" on "product_solicitations"."id" = "financial_billing_client_product_solicitations"."product_solicitation_id" inner join "products" on "products"."id" = "product_solicitations"."product_id" inner join "product_solicitation_types" on "product_solicitation_types"."id" = "product_solicitations"."product_solicitation_type_id" inner join "financial_billings" on "financial_billings"."id" = "financial_billing_clients"."financial_billing_id" inner join "financial_billing_resales" on "financial_billing_resales"."financial_billing_id" = "financial_billings"."id" where "financial_billing_resales"."id" = $P{billing_id} order by company_name]]>
+		<![CDATA[select "clients"."company_name", "clients"."company_actual_name", "clients"."identification", "products"."name" as "product_name", "financial_billing_client_product_solicitations"."value", "product_solicitation_types"."descricao" as "contract_type", "product_solicitations"."id", "financial_billing_client_product_solicitations"."competence_month" from "financial_billing_client_product_solicitations" inner join "financial_billing_clients" on "financial_billing_clients"."id" = "financial_billing_client_product_solicitations"."financial_billing_client_id" inner join "clients" on "clients"."id" = "financial_billing_clients"."client_id" inner join "product_solicitations" on "product_solicitations"."id" = "financial_billing_client_product_solicitations"."product_solicitation_id" inner join "products" on "products"."id" = "product_solicitations"."product_id" inner join "product_solicitation_types" on "product_solicitation_types"."id" = "product_solicitations"."product_solicitation_type_id" inner join "financial_billings" on "financial_billings"."id" = "financial_billing_clients"."financial_billing_id" inner join "financial_billing_resales" on "financial_billing_resales"."financial_billing_id" = "financial_billings"."id" where "financial_billing_resales"."id" = "2" order by company_name]]>
 	</queryString>
 	<field name="company_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_name"/>
@@ -33,8 +33,14 @@
 		<property name="com.jaspersoft.studio.field.label" value="competence_month"/>
 	</field>
 	<variable name="previa_total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA["TOTAL SISTEMAS"]]></variableExpression>
+	</variable>
+	<variable name="previa_subtotal" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{value}]]></variableExpression>
 	</variable>
+	<group name="client_total">
+		<groupExpression><![CDATA[$F{company_name}]]></groupExpression>
+	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -50,21 +56,21 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="40" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="140" height="30" uuid="1589c4c9-6be1-4758-bc40-acf23c0c9924">
+				<reportElement x="0" y="0" width="150" height="30" uuid="1589c4c9-6be1-4758-bc40-acf23c0c9924">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27c378fa-3621-43c5-975a-bcd6ac7c6be3"/>
 				</reportElement>
 				<text><![CDATA[Nome Fantasia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="0" width="150" height="30" uuid="ee6567c0-a89c-491e-b42a-f991d4a11838">
+				<reportElement x="150" y="0" width="170" height="30" uuid="ee6567c0-a89c-491e-b42a-f991d4a11838">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafd5240-6d39-4e6a-9374-af175ce9de55"/>
 				</reportElement>
 				<text><![CDATA[Razão Social]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="330" y="0" width="80" height="30" uuid="eecf1de3-8f61-4b88-91fa-43ac593cda17">
+				<reportElement x="320" y="0" width="100" height="30" uuid="eecf1de3-8f61-4b88-91fa-43ac593cda17">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="488b217b-963c-4878-8441-26099ea67a11"/>
 				</reportElement>
 				<text><![CDATA[Produto]]></text>
@@ -76,7 +82,7 @@
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="499" y="0" width="60" height="30" uuid="dd2b647f-7179-4245-8ce2-4768578e3398">
+				<reportElement x="490" y="0" width="69" height="30" uuid="dd2b647f-7179-4245-8ce2-4768578e3398">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5ba002c-a0e1-4744-a49c-7300ed861443"/>
 				</reportElement>
 				<text><![CDATA[Tipo de Contrato]]></text>
@@ -84,33 +90,34 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="34" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="140" height="30" uuid="0ce754b2-9717-48c4-8dfd-f843ade14b13">
+				<reportElement x="0" y="0" width="150" height="20" uuid="0ce754b2-9717-48c4-8dfd-f843ade14b13">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27c378fa-3621-43c5-975a-bcd6ac7c6be3"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{company_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="160" y="0" width="148" height="30" uuid="5caaac92-a927-4bac-9e72-31e37201cd1b">
+				<reportElement x="150" y="0" width="170" height="20" uuid="5caaac92-a927-4bac-9e72-31e37201cd1b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafd5240-6d39-4e6a-9374-af175ce9de55"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{company_actual_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="330" y="0" width="80" height="30" uuid="8c10c0db-a111-4128-8a9e-cdacf70ec79b">
+				<reportElement x="320" y="0" width="100" height="20" uuid="8c10c0db-a111-4128-8a9e-cdacf70ec79b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="488b217b-963c-4878-8441-26099ea67a11"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.##;¤-#,##0.##">
-				<reportElement x="420" y="0" width="70" height="30" uuid="074a02b8-a14d-4d29-98e6-b1b95081850e">
+				<reportElement x="420" y="0" width="70" height="20" uuid="074a02b8-a14d-4d29-98e6-b1b95081850e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba4c4b6f-389b-4b2d-8250-0e55a54537c4"/>
 				</reportElement>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="499" y="4" width="60" height="30" uuid="7f8016ef-b20e-41a0-aa6b-5145402b8c29">
+				<reportElement x="490" y="0" width="70" height="20" uuid="7f8016ef-b20e-41a0-aa6b-5145402b8c29">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5ba002c-a0e1-4744-a49c-7300ed861443"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{contract_type}]]></textFieldExpression>
@@ -155,7 +162,7 @@
 			<textField pattern="#,##0.00">
 				<reportElement x="490" y="19" width="65" height="19" uuid="493790dd-0611-4b24-88be-3b2c9bde6483"/>
 				<box rightPadding="5"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" markup=""/>
 				<textFieldExpression><![CDATA[$V{previa_total}]]></textFieldExpression>
 			</textField>
 		</band>
