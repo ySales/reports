@@ -4,11 +4,11 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CashFlow\DataAdapter.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="bu_id" class="java.lang.Integer"/>
-	<parameter name="initial_date" class="java.sql.Date"/>
-	<parameter name="final_date" class="java.sql.Date"/>
+	<parameter name="initial_date" class="java.util.Date"/>
+	<parameter name="final_date" class="java.util.Date"/>
 	<parameter name="initial_balance" class="java.lang.Double"/>
 	<queryString>
-		<![CDATA[select "natureza", "valor", "data_lancamento", "complemento", "description", "name", "identification" from "financial_lancamentos" left join "financial_movement_origins" on "financial_movement_origins"."id" = "financial_lancamentos"."financial_movement_origin_id" left join "financial_business_units" on "financial_business_units"."id" = "financial_lancamentos"."financial_business_unit_id" left join "financial_entities" on "financial_entities"."id" = "financial_business_units"."financial_entity_id" where "data_lancamento" >=  $P{initial_date} and "data_lancamento" <= $P{final_date} and "financial_business_unit_id" =  $P{bu_id} order by "data_lancamento" asc]]>
+		<![CDATA[select "financial_lancamentos"."updated_at", "financial_lancamentos"."created_at", "natureza", "valor", "data_lancamento", "complemento", "description", "name", "identification" from "financial_lancamentos" left join "financial_movement_origins" on "financial_movement_origins"."id" = "financial_lancamentos"."financial_movement_origin_id" left join "financial_business_units" on "financial_business_units"."id" = "financial_lancamentos"."financial_business_unit_id" left join "financial_entities" on "financial_entities"."id" = "financial_business_units"."financial_entity_id" where "data_lancamento" >=  $P{initial_date} and "data_lancamento" <= $P{final_date} and "financial_business_unit_id" =  $P{bu_id} order by "data_lancamento" asc, "updated_at" desc, "valor" desc, "created_at" asc]]>
 	</queryString>
 	<field name="natureza" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="natureza"/>
@@ -53,21 +53,21 @@
 				<staticText>
 					<reportElement x="317" y="0" width="100" height="16" uuid="d21b106d-6767-491c-b5e1-a3081a9bc2d4"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" isBold="false"/>
+						<font fontName="DejaVu Sans Mono" isBold="false"/>
 					</textElement>
 					<text><![CDATA[Total Diário:]]></text>
 				</staticText>
 				<textField>
 					<reportElement x="417" y="0" width="73" height="16" uuid="c509388b-d0cd-4d7c-99f6-2e265ca2b90e"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-						<font fontName="Courier New" isBold="true"/>
+						<font fontName="DejaVu Sans Mono" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{entrada_diaria}))]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="490" y="0" width="63" height="16" uuid="1b44fda2-eebc-42f9-b7c4-8236c77ca9fa"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Courier New" isBold="true"/>
+						<font fontName="DejaVu Sans Mono" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{saida_diaria}))]]></textFieldExpression>
 				</textField>
@@ -84,54 +84,61 @@
 				<imageExpression><![CDATA["PreviaRevenda/total_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="260" y="10" width="296" height="31" uuid="2aa7e236-fc15-499d-a369-7c35c77187c5"/>
-				<textElement textAlignment="Center">
-					<font size="16"/>
+				<reportElement x="261" y="20" width="296" height="31" uuid="2aa7e236-fc15-499d-a369-7c35c77187c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Movimento de Caixa]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="60" y="90" width="130" height="20" uuid="7a4f4b73-7d6a-4217-b478-65b8722a7a93"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Período:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="60" y="60" width="131" height="25" uuid="809e6d1f-092c-4608-b463-b7347966d3c3"/>
+				<reportElement x="40" y="60" width="151" height="25" uuid="809e6d1f-092c-4608-b463-b7347966d3c3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Unidade de Negócio:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="200" y="60" width="273" height="25" uuid="db7df528-c45f-48fe-9906-41fc3bb1460d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="12" isBold="false"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF(EQUALS($F{identification}, ""), $F{name}, $F{name} + " (" + $F{identification} + "}")]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy a">
 				<reportElement x="200" y="89" width="80" height="22" uuid="2919f4fc-88fc-4df9-bbda-99655015939f"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="12" isBold="false"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{initial_date}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="280" y="89" width="79" height="22" uuid="be02ba38-85f7-4ebf-9945-9f064634b9ab"/>
+				<reportElement x="310" y="89" width="79" height="22" uuid="be02ba38-85f7-4ebf-9945-9f064634b9ab"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="12" isBold="false"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{final_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="230" y="89" width="80" height="22" uuid="64068ff3-d244-44ad-8ca0-3820ddfdcf45"/>
+				<reportElement x="250" y="89" width="80" height="22" uuid="64068ff3-d244-44ad-8ca0-3820ddfdcf45"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="false"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["a"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="80" height="20" uuid="85be2f5b-a73f-4b00-aefe-6b280f418d3a"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -139,29 +146,29 @@
 		<band height="28">
 			<staticText>
 				<reportElement x="70" y="5" width="347" height="21" uuid="2a4b8893-91f1-4bea-aea6-044d024b0e45"/>
-				<textElement>
-					<font size="11" isBold="true"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Histórico]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="5" width="59" height="21" uuid="1f2da8e4-2326-4343-8acc-7dfcdc9ea941"/>
-				<textElement>
-					<font size="11" isBold="true"/>
+				<reportElement x="1" y="5" width="69" height="21" uuid="1f2da8e4-2326-4343-8acc-7dfcdc9ea941"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Movimento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="417" y="5" width="73" height="21" uuid="2e8cdcbc-303d-401d-875f-62a3ac8cde05"/>
-				<textElement textAlignment="Right">
-					<font size="11" isBold="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Entrada]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="490" y="5" width="63" height="21" uuid="adb6d528-b739-4720-a12f-e37efe00c190"/>
-				<textElement textAlignment="Right">
-					<font size="11" isBold="true"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Saída]]></text>
 			</staticText>
@@ -180,7 +187,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27c378fa-3621-43c5-975a-bcd6ac7c6be3"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Courier New"/>
+					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{data_lancamento}]]></textFieldExpression>
 			</textField>
@@ -189,7 +196,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafd5240-6d39-4e6a-9374-af175ce9de55"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle" markup="none">
-					<font fontName="Courier New"/>
+					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description} + " " + $F{complemento}]]></textFieldExpression>
 			</textField>
@@ -198,7 +205,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27c378fa-3621-43c5-975a-bcd6ac7c6be3"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New"/>
+					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF(EQUALS($F{natureza},"entrada"),new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($F{valor})), "")]]></textFieldExpression>
 			</textField>
@@ -207,7 +214,7 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27c378fa-3621-43c5-975a-bcd6ac7c6be3"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New"/>
+					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF(EQUALS($F{natureza},"saida"),new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($F{valor})), "")]]></textFieldExpression>
 			</textField>
@@ -217,19 +224,30 @@
 		<band height="27">
 			<staticText>
 				<reportElement x="380" y="5" width="59" height="16" uuid="15068f7e-2930-4472-ae9a-f5c0b9729318"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<text><![CDATA[Página]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement x="501" y="6" width="25" height="15" uuid="317912c4-b776-4855-950a-0ce8c67d5c27"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="6" width="20" height="14" uuid="6e9bd477-6d8d-4dfe-9f2b-c4e1fc43be78"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="480" y="6" width="21" height="15" uuid="43888611-8fba-4fc6-987c-2de6ac2b01aa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<text><![CDATA[de]]></text>
 			</staticText>
 		</band>
@@ -242,7 +260,7 @@
 			<staticText>
 				<reportElement x="270" y="0" width="100" height="16" uuid="cc3de8c5-c1ee-4b22-97d8-a70a7f921958"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" size="11"/>
+					<font fontName="DejaVu Sans Mono" size="11"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Movimento:]]></text>
@@ -250,35 +268,35 @@
 			<staticText>
 				<reportElement x="270" y="17" width="100" height="16" uuid="f7516f7a-4927-41d0-b416-9528f8dd49fa"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" size="11"/>
+					<font fontName="DejaVu Sans Mono" size="11"/>
 				</textElement>
 				<text><![CDATA[Saldo Anterior:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="270" y="33" width="100" height="16" uuid="0dddaef2-14a6-4d91-a51a-f4f799c561e2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" size="11"/>
+					<font fontName="DejaVu Sans Mono" size="11"/>
 				</textElement>
 				<text><![CDATA[Saldo Atual:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="270" y="49" width="100" height="16" uuid="2cb6f4b7-0859-4fac-bf8d-9329386ace38"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" size="11"/>
+					<font fontName="DejaVu Sans Mono" size="11"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="370" y="1" width="90" height="15" uuid="2d2444dd-9a98-4710-8c77-92854a4609a3"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{entrada_total}))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="473" y="1" width="79" height="15" uuid="489b03c3-3f70-4ea0-8287-d1e2de884cd4"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($V{saida_total}))]]></textFieldExpression>
 			</textField>
@@ -291,56 +309,56 @@
 			<staticText>
 				<reportElement x="25" y="6" width="74" height="20" uuid="3776d490-5b5a-4032-96a7-fd12a37ce8b7"/>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<text><![CDATA[GERENCIA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="117" y="6" width="74" height="20" uuid="5df7cfdb-6f92-491f-bee6-ef14c9b5e980"/>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CAIXA]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="370" y="17" width="90" height="15" uuid="db60d591-7d69-488c-9aa0-cef610fbc49e"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($P{initial_balance}))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="473" y="18" width="79" height="15" uuid="e0eeebb9-6367-46be-8c81-51afc0943389"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["************"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="370" y="33" width="90" height="16" uuid="3f043c7c-7388-47e1-b1e4-6020a0bf2edd"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["************"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="473" y="34" width="79" height="15" uuid="bee87771-1832-410a-b612-970a1f89b042"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($P{initial_balance} + ($V{entrada_total} - $V{saida_total})))]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="370" y="50" width="90" height="15" uuid="41e1ff7a-63db-484c-bde7-6e61abfd1042"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Courier New" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format(Double.valueOf($P{initial_balance} + ($V{entrada_total} - $V{saida_total})))]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="50" y="47" width="116" height="18" uuid="d4be3ae7-2d0c-4af3-a1c7-552a3e5a7811"/>
 				<textElement textAlignment="Center">
-					<font isBold="true"/>
+					<font fontName="DejaVu Sans Mono" isBold="true"/>
 				</textElement>
 				<text><![CDATA[RECEBIDO P/ MATRIZ]]></text>
 			</staticText>

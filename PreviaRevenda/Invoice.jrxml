@@ -47,21 +47,21 @@
 	<group name="client_subtotal">
 		<groupExpression><![CDATA[$F{client_id}]]></groupExpression>
 		<groupFooter>
-			<band height="20">
+			<band height="18">
+				<rectangle>
+					<reportElement x="-1" y="0" width="554" height="17" forecolor="#FFFFFF" backcolor="#D9D7D7" uuid="f3f5cabe-b654-47a8-bc96-8cbe749aa251"/>
+				</rectangle>
 				<staticText>
-					<reportElement x="0" y="0" width="100" height="18" uuid="0c508d88-aa75-432a-b261-6191e02b35a4"/>
+					<reportElement x="1" y="0" width="120" height="18" uuid="0c508d88-aa75-432a-b261-6191e02b35a4"/>
 					<textElement verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font fontName="DejaVu Sans Mono" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Total do Cliente:]]></text>
 				</staticText>
-				<line>
-					<reportElement x="-1" y="0" width="556" height="1" forecolor="#E3E3E3" uuid="006d3ffc-1e29-448d-81a9-96811747ebbc"/>
-				</line>
 				<textField>
-					<reportElement x="426" y="0" width="85" height="18" uuid="e8bedec4-f029-4313-afe5-09ebf337e01e"/>
+					<reportElement x="410" y="0" width="101" height="18" uuid="e8bedec4-f029-4313-afe5-09ebf337e01e"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font isBold="true"/>
+						<font fontName="DejaVu Sans Mono" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.text.DecimalFormat("R$ #,##0.00").format(Double.valueOf($V{client_total}))]]></textFieldExpression>
 				</textField>
@@ -72,45 +72,52 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="101" splitType="Stretch">
+		<band height="114" splitType="Stretch">
 			<image hAlign="Center">
 				<reportElement x="-1" y="10" width="241" height="39" uuid="94883631-a913-43e2-b182-ab8d77d0181e"/>
 				<imageExpression><![CDATA["PreviaRevenda/total_logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="326" y="10" width="230" height="31" uuid="2aa7e236-fc15-499d-a369-7c35c77187c5"/>
-				<textElement>
-					<font size="20"/>
+				<reportElement x="250" y="18" width="296" height="31" uuid="2aa7e236-fc15-499d-a369-7c35c77187c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="18"/>
 				</textElement>
 				<text><![CDATA[Prévia para faturamento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="348" y="60" width="141" height="31" uuid="7a4f4b73-7d6a-4217-b478-65b8722a7a93"/>
-				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+				<reportElement x="19" y="80" width="141" height="21" uuid="7a4f4b73-7d6a-4217-b478-65b8722a7a93"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="12"/>
 				</textElement>
 				<text><![CDATA[Mês de competência:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-2" y="60" width="81" height="31" uuid="809e6d1f-092c-4608-b463-b7347966d3c3"/>
-				<textElement verticalAlignment="Middle">
-					<font size="16"/>
+				<reportElement x="79" y="60" width="81" height="20" uuid="809e6d1f-092c-4608-b463-b7347966d3c3"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="12"/>
 				</textElement>
 				<text><![CDATA[Revenda:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="79" y="60" width="253" height="31" uuid="db7df528-c45f-48fe-9906-41fc3bb1460d"/>
+				<reportElement x="170" y="60" width="279" height="20" uuid="db7df528-c45f-48fe-9906-41fc3bb1460d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font size="15" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{resale_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/yyyy">
-				<reportElement x="488" y="60" width="66" height="31" uuid="da368ed9-fa49-463c-9ad0-436ae2e05f6d"/>
+				<reportElement x="170" y="80" width="279" height="21" uuid="da368ed9-fa49-463c-9ad0-436ae2e05f6d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14" isBold="true"/>
+					<font fontName="DejaVu Sans Mono" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{billing_competence_month}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="80" height="20" uuid="85be2f5b-a73f-4b00-aefe-6b280f418d3a"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format(new Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -118,43 +125,43 @@
 		<band height="31">
 			<staticText>
 				<reportElement x="511" y="5" width="42" height="21" uuid="1d8cc64a-a70a-450d-a45b-687810d509d9"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="150" y="5" width="110" height="21" uuid="2a4b8893-91f1-4bea-aea6-044d024b0e45"/>
-				<textElement>
-					<font size="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nome do cliente]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="454" y="5" width="57" height="21" uuid="be7f3569-80d3-43b3-aa0b-10726adfb5a1"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="5" width="72" height="21" uuid="1f2da8e4-2326-4343-8acc-7dfcdc9ea941"/>
-				<textElement>
-					<font size="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apelido]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="324" y="5" width="66" height="21" uuid="2e8cdcbc-303d-401d-875f-62a3ac8cde05"/>
-				<textElement>
-					<font size="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sistema]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="390" y="5" width="64" height="21" uuid="adb6d528-b739-4720-a12f-e37efe00c190"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono" size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Referência]]></text>
 			</staticText>
@@ -167,49 +174,60 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
+		<band height="17">
 			<textField>
-				<reportElement x="0" y="0" width="140" height="19" uuid="51a622b9-27c5-4e38-80f3-43fe2596fdb4">
+				<reportElement x="0" y="0" width="140" height="17" uuid="51a622b9-27c5-4e38-80f3-43fe2596fdb4">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="27c378fa-3621-43c5-975a-bcd6ac7c6be3"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{company_name} + ( $F{identification}.equals("") ? "" : " (" + $F{identification} + ")" )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="0" width="170" height="20" uuid="44d9a279-1b63-4deb-b824-9f56f33cc7a3">
+				<reportElement x="150" y="0" width="170" height="17" uuid="44d9a279-1b63-4deb-b824-9f56f33cc7a3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aafd5240-6d39-4e6a-9374-af175ce9de55"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle" markup="none"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{company_actual_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="324" y="0" width="66" height="20" uuid="03d0bff5-1203-46b0-9a7c-ec8955fc9b49">
+				<reportElement x="324" y="0" width="66" height="17" uuid="03d0bff5-1203-46b0-9a7c-ec8955fc9b49">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="488b217b-963c-4878-8441-26099ea67a11"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="¤#,##0.##;¤-#,##0.##">
-				<reportElement x="454" y="0" width="57" height="20" uuid="3650f67e-585d-41ec-ae8a-0b200313e0b1">
+				<reportElement x="454" y="0" width="57" height="17" uuid="3650f67e-585d-41ec-ae8a-0b200313e0b1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba4c4b6f-389b-4b2d-8250-0e55a54537c4"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("R$ #,##0.00").format(Double.valueOf($F{value}))]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="511" y="0" width="42" height="20" uuid="b5b2a51f-7b2b-4130-9c3d-3b8d7116a89c">
+				<reportElement x="511" y="0" width="42" height="17" uuid="b5b2a51f-7b2b-4130-9c3d-3b8d7116a89c">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d5ba002c-a0e1-4744-a49c-7300ed861443"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{contract_type}.substring(0, 3)]]></textFieldExpression>
 			</textField>
 			<textField pattern="MM/yyyy">
-				<reportElement x="390" y="0" width="64" height="20" uuid="dff1196f-ce41-4a26-b7de-2e6872bcadce">
+				<reportElement x="390" y="0" width="64" height="17" uuid="dff1196f-ce41-4a26-b7de-2e6872bcadce">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="488b217b-963c-4878-8441-26099ea67a11"/>
 				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{competence_month}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -218,19 +236,30 @@
 		<band height="30">
 			<staticText>
 				<reportElement x="376" y="4" width="59" height="21" uuid="15068f7e-2930-4472-ae9a-f5c0b9729318"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<text><![CDATA[Página]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
 				<reportElement x="501" y="4" width="25" height="21" uuid="317912c4-b776-4855-950a-0ce8c67d5c27"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="4" width="20" height="21" uuid="6e9bd477-6d8d-4dfe-9f2b-c4e1fc43be78"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="480" y="4" width="21" height="21" uuid="43888611-8fba-4fc6-987c-2de6ac2b01aa"/>
+				<textElement>
+					<font fontName="DejaVu Sans Mono"/>
+				</textElement>
 				<text><![CDATA[de]]></text>
 			</staticText>
 		</band>
@@ -241,17 +270,17 @@
 				<reportElement x="0" y="8" width="553" height="40" uuid="265c2e2a-75d6-490a-8b28-b560c564c85a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="326" y="13" width="110" height="30" uuid="551f5e2a-a766-4c58-afd4-17d438af8563"/>
+				<reportElement x="280" y="13" width="146" height="30" uuid="551f5e2a-a766-4c58-afd4-17d438af8563"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12"/>
+					<font fontName="DejaVu Sans Mono" size="12"/>
 				</textElement>
 				<text><![CDATA[Total da Revenda:]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement x="440" y="13" width="93" height="31" uuid="ae140580-803c-4016-886c-b0719753e0ef"/>
+				<reportElement x="426" y="13" width="119" height="31" uuid="ae140580-803c-4016-886c-b0719753e0ef"/>
 				<box rightPadding="5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="none">
-					<font size="12"/>
+					<font fontName="DejaVu Sans Mono" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("R$ #,##0.00").format(Double.valueOf($V{previa_total}))]]></textFieldExpression>
 			</textField>
